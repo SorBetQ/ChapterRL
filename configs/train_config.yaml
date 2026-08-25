@@ -1,0 +1,146 @@
+mode:
+
+model:
+  baseline:
+  use_lora:
+  lora_r:
+  lora_alpha:
+  lora_dropout:
+  gradient_checkpointing:
+
+distributed:
+  nnodes:
+  nproc_per_node:
+  master_addr:
+  master_port:
+  backend:
+
+paths:
+  root_dir:
+  model_path:
+  novel_json:
+  user_json:
+  rdr_labels:
+  rdr_labels_discrete:
+  rdr_train_jsonl_discrete:
+  rdr_val_jsonl_discrete:
+  rdr_train_jsonl:
+  rdr_val_jsonl:
+  arousal_jsonl:
+  split_dir:
+  grpo_prompts:
+  rdr_output_dir:
+  as_output_dir:
+  grpo_output_dir:
+
+rdr:
+  alpha:
+  K:
+  max_length:
+  n_classes:
+  huber_delta:
+  rank_margin:
+  rank_loss_weight:
+  checkpoint_path:
+  epochs:
+  per_device_batch_size:
+  gradient_accumulation_steps:
+  lr:
+  warmup_ratio:
+  weight_decay:
+  early_stopping_patience:
+  early_stopping_metric:
+  keep_last_checkpoints:
+  min_chapters:
+  max_chapters:
+  min_genre_n:
+  num_workers:
+  log_interval:
+
+drt:
+  K:
+  tau:
+  as_checkpoint_path:
+  as_epochs:
+  as_batch_size:
+  as_lr:
+  as_max_length:
+  as_lora_r:
+  as_lora_alpha:
+
+grpo:
+  epochs:
+  lr:
+  per_device_batch_size:
+  gradient_accumulation_steps:
+  warmup_steps:
+  max_steps:
+  group_size:
+  clip_eps:
+  kl_coef:
+  max_new_tokens:
+  max_input_length:
+  lambda_rdr:
+  format_penalty:
+  short_prompt_ratio:
+  reference_model_offload:
+  reward_model_offload:
+  loss_chunk_size:
+  dataloader_num_workers:
+  log_interval:
+
+deepspeed:
+  config_file:
+
+mode_overrides:
+  rdr:
+    paths:
+      rdr_output_dir:
+      rdr_train_jsonl:
+      rdr_val_jsonl:
+    distributed:
+      nnodes:
+      nproc_per_node:
+      master_addr:
+      master_port:
+    rdr:
+      huber_delta:
+      rank_loss_weight:
+      epochs:
+      per_device_batch_size:
+      gradient_accumulation_steps:
+      max_chapters_per_book_in_batch:
+      lr:
+      early_stopping_patience:
+    grpo:
+      enabled:
+
+  grpo_rdr_only:
+    paths:
+      grpo_output_dir:
+    grpo:
+      rdr_enabled:
+      rdr_discrete:
+      as_enabled:
+      drt_enabled:
+      rdr_checkpoint:
+
+  grpo_rdr_as:
+    paths:
+      grpo_output_dir:
+    grpo:
+      rdr_enabled:
+      rdr_discrete:
+      as_enabled:
+      drt_enabled:
+      rdr_checkpoint:
+      as_checkpoint:
+
+  grpo_as_only:
+    paths:
+      grpo_output_dir:
+    grpo:
+      rdr_enabled:
+      as_enabled:
+      drt_enabled:
+      as_checkpoint:
